@@ -1,0 +1,73 @@
+1. Stabilizing Locators (Strict Mode Violation)
+Problem: page.locator('button') is too generic. If a "Loading Spinner" also uses a <button> tag, Playwright detects two elements and throws a Strict Mode Violation error.
+Ans. If we have more than 1 button identified with that locator, we get that error.
+We can use, playwright locators(semantic locators) to avoid this
+page.getByRole(`button`,{name:`submit`,exact=true}) => exact =true will match that exactly and not like contains
+
+2. Anagram Check Function
+Ans. 
+function isAnagram(str1,str2){
+  if(str1.length != str2.length){
+    return false.
+  }
+  return str1.split('').sort().join() === str2.split('').sort().join()?'Anagram':'Not Anagram'
+}
+const result = isAnagram('silent', 'listen');
+console.log(result);
+
+3. Relative XPath for Dynamic Tables
+Logic: When IDs are dynamic, use a unique text anchor (like a Username) to find the row, then navigate to the button within that row.
+Example:
+<tr>
+<td>John Doe</td>
+<td><button class="btn-edit">Edit</button></td>
+</tr>
+using relative xpath => 
+//td[text()="John Doe"]/following-sibling::td/button
+
+4. Soft Assertion
+expect.soft() => even when the test fails, the execution does not stop. It will proceed till the end. But the report will have the failures mentioned
+hard assertion => execution immediately stops when 1 test fails
+
+5. Compound XPath (AND Logic)
+Ans. When we need multiple identification to uniquely identify a locator. then we use 'AND' to add multiple identification
+//input[@class='form'and @title='username']
+
+6. Backward Traversal (Preceding Axis)
+Logic: The preceding axis searches for all elements located before the current element in the entire document. Using index [1] selects the closest match moving backward.
+Ans.
+<span class="error">Invalid input</span>
+<button>Save</button>
+
+Preceding xpath => //button[text()='Save']/preceding::span[@class='error'][1]
+
+7.Difference between slice() and splice()
+Ans.
+let a = [1,2,3,4,5]
+a.slice(1,4) => [2,3,4] => return a portion of array from start index and before end index
+a.spilce(1,2,8,9) => [8,9,4,5,6] => based on the count and replace element given, it removes and replaces
+
+8.How do you convert an array to a string? And string to array?
+Ans. 
+To convert array to string we use 2 ways
+let arr = [1,2,3,4,5]
+1. Using toString()
+  let str = arr.toString() Output => "1,2,3,4,5"
+
+2. Using join() => replcaes comma with hypen(-)
+  let str = arr.join() Output => "1-2-3-4-5"
+
+3. To convert string to array
+let str = "1,2,3,4,5";
+let arr = str.split(',') Output => [1,2,3,4,5]
+
+9. Find all pairs in an array whose sum is a given number
+let arr = [2,4,3,5,7,8,9];
+let target = 10;
+for(let i = 0; i < arr.length; i++){
+  for(j = i+1; j < arr.length; j++){
+    if(arr[i]+arr[j] === target){
+      console.log(`${arr[i]},${arr[j]}`)
+    }
+  }
+}

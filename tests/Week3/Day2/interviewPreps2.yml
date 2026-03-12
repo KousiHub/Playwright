@@ -1,0 +1,61 @@
+1. Why Playwright does not face "Stale Exception error" like Selenium does?
+Ans. In Selenium, if DOM is not loaded properly and for dynamic elements = we get Stale Exception
+But in Playwright,we have autowaiting and actionability checks all time. That is, before performing an action, 
+it will always check if element is attached, visible, stable and hit the targetted element. 
+This significantly reduces test flakiness
+
+2. How do you locate dropdown that does not have <Select> tag?
+Ans. We should locate it like normal webelement and use .Click() to select the values
+
+3. When the dropdown loads only after we type 3 characters, we can see the options available in the dd. How to automate?
+Ans. 
+Option 1: locate and fill any 3 characters using .fill() then assert using tobeenabled(), etc..
+Option 2: pressSequentially() => this will press the characters as required automatically like the user press. 
+We can also include delays in "milliseconds" like how the user waits in real time.
+locator.pressSequentially();
+
+4. A test fails in CI, but passes locally. How to debug?
+Ans. To Enable DOM snapshot, network logs and traces do the below in config file
+This will enable trace,screenshot, video in every report and always shows output in browser(not headless)
+trace: on
+screenshot: on 
+video: on
+headless: false
+Also, when we reporter: [['html', { open: 'always' }]],
+
+5. Infinite scroll dropdown
+Ans. First, locate the dropdown and click. Second, check if the required option is visible.
+Third, using keyboard events and while loop, try the below
+page.keyboard.press('PageDown')
+page.locator('dropdown').scrollIntoViewIfNeeded()
+
+6. Difference between a function login() {} and const login = function(){}
+Ans. function login() {}
+Functions are hoisted, so no error even when they are called before function declaration.
+
+const login = function(){}
+Function expression are not hoisted, so calling them before will throw reference error.
+
+7. Write reusable JS function that takes playwright locator as input and return true if element is visible and enabled. Otherwise return false.
+Ans. async function isReady(locator){
+if {
+returns await locator.isVisible() && locator.isEnabled()
+}
+returns false;
+}
+
+8. How to select multiple elements in the dropdown ?
+Ans. 
+await page.locator(`#colors`).selectOptions([`red',`green`,`yellow`])
+
+9. What is browser installation command?  npm or npx ?
+Ans.
+npx playwright Install => installs all the browsers
+npm install -D @playwright/test => installs only playwright package
+
+10. Explain async/await
+Ans. Its a cleaner wait that returns a promised function in JS. 
+Aysnc is defined for function. only if promise is resolved in first line, it will go to the next line.
+async function getData(){
+const response = await fetch(url)
+}

@@ -1,0 +1,50 @@
+
+Advanced Relative Xpath Locators :
+--------------------------
+
+1. Parent To child  : (Top to Bottom)
+-----------------
+( parent relative xpath)/(tagName of child)
+(//form[@id="login"]/p)[3]
+
+
+2. GrandParent to child Relation : (Top to Bottom)   
+--------------------------------
+GrandParent relative xpath//tagName of grand child
+(//form[@id="login"]//label)[2]
+
+
+3. Child to parent :  (Bottom to Top)    
+----------------
+Child relative xpath/parent::parent tagName --> //input[@id="username"]/parent::p
+//input[@id="username"]/parent::p
+
+
+4. Grandchild to grandparent :  (Bottom to Top)
+-----------------------------
+GrandChild relative xpath/ancestor::tagName of grand parent --> //input[@id="password"]/ancestor::p
+//label[text()="Username"]/ancestor::form
+
+
+5. Elder sibling to younger sibling : (Top to Bottom)
+----------------------------------
+(Elder sibling relative xpath)/following-sibling::tagName of younger sibling --> //label[text()='Username']/following-sibling::input
+//label[text()="Username"]/following-sibling::input
+
+
+6. Younger sibling to Elder Sibling : (Bottom to Top)
+-----------------------------------
+(Younger sibling relative xpath)/preceding-sibling::tagName of elder sibling --> //input[@id='username']/preceding-sibling::label
+(//input[@id="username"]/preceding-sibling::label)
+
+
+7. Elder Cousin to Younger Cousin : (Top to Bottom)
+--------------------------------
+Elder cousing relative xpath/following::tagName of younger Cousin --> //input[@id="username"]/following::label
+//input[@id="username"]/following::input
+
+
+8. Younger Cousin to Elder Cousin: (Bottom to Top)
+-------------------------------
+Younger cousin xpath/preceding::tagName of Elder cousin --> //label[text()='Password']/preceding::input
+(//input[@class="decorativeSubmit"]/preceding::input)[1]
